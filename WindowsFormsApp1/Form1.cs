@@ -37,6 +37,21 @@ namespace poo_2
 
         }
 
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            //Productos productos = new Productos();
+            //productos.productos_codigo = 12345698764;
+            //productos.productos_nombre = "MILLER";
+            //productos.productos_precio = 36.00f;
+
+
+
+            listaProductos.Add(productos);
+            listaProductos.Add(new Productos(1234567892589, "no se ", 36.36f));
+
+
+        }
+
         private void cargaProducto()
         {
 
