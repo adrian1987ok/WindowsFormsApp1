@@ -281,6 +281,7 @@ namespace WindowsFormsApp1
             DataObject dataObject = dataGridView1.GetClipboardContent();
             File.WriteAllText("Practica Sistemas.csv", dataObject.GetText(TextDataFormat.CommaSeparatedValue));
         }
+
     }
 }
             
