@@ -276,6 +276,7 @@ namespace WindowsFormsApp1
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             MessageBox.Show(" Ya guardaste estas seguro ");
+            dataGridView1.SelectAll();
             dataGridView1.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
             DataObject dataObject = dataGridView1.GetClipboardContent();
             File.WriteAllText("Practica Sistemas.csv", dataObject.GetText(TextDataFormat.CommaSeparatedValue));
