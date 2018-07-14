@@ -28,48 +28,47 @@ namespace poo_2
             //productos.productos_codigo = 12345698764;
             //productos.productos_nombre = "MILLER";
             //productos.productos_precio = 36.00f;
-
-
-
-            listaProductos.Add(productos);
-            listaProductos.Add(new Productos(1234567892589, "no se " , 36.36f));
-
-
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            //Productos productos = new Productos();
-            //productos.productos_codigo = 12345698764;
-            //productos.productos_nombre = "MILLER";
-            //productos.productos_precio = 36.00f;
-
-
-
-            listaProductos.Add(productos);
-            listaProductos.Add(new Productos(1234567892589, "no se ", 36.36f));
+            
+            //listaProductos.Add(productos);
+            //listaProductos.Add(new Productos(1234567892589, "no se " , 36.36f));
 
 
         }
 
-        private void cargaProducto()
-        {
-
-
-
-
+        private void cargaProductos()
+        { 
+            // Propiedades
+            
 
         }
-
 
         class Productos
         {
-            // Propedades
+            // Propiedades
+
             public long producto_codigo = 0;
-            public String 
+            public String producto_nombre = "";
+            public float producto_precio = 0.00f;
+
+
+            public Productos()
+            {
+                MessageBox.Show("Me llamaron");
+            }
+
+            public Productos(long producto_codigo)
+            {
+                this.producto_codigo = producto_codigo;
+
+            }
 
         }
 
+
+
+    
+
+ 
 
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
