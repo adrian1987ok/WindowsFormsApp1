@@ -12,157 +12,49 @@ using System.IO;
 namespace WindowsFormsApp1
 
 {
-    public partial class Form1 : Form
+    public partial class CRUD : Form
     {
 
-        private List<Productos> listaProductos = new List<Productos>();
-
-        Productos[] miller = new Productos[10];
         private int rowSelect;
 
-        public Form1()
+        public CRUD()
         {
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void CRUD_Load(object sender, EventArgs e)
         {
-            //Productos productos = new Productos();
-            //productos.productos_codigo = 12345698764;
-            //productos.productos_nombre = "MILLER";
-            //productos.productos_precio = 36.00f;
-
-            //listaProductos.Add(productos);
-            //listaProductos.Add(new Productos(1234567892589, "no se " , 36.36f));
-
-
-
-            //Productos productos = new Productos(1, "Kawamon",36.00);
-            //Productos productos1 = new Productos(1, "Kawamon", 15);
-            // Productos productos2 = new Productos();
-
-
-            // Productos[] miller = new Productos[10];
-            miller[0] = new Productos(10, " Bote ", 25);
-            miller[1] = new Productos(15, " Bote ", 25.00);
-            miller[2] = new Productos(20, " Bote ", 25);
-            miller[3] = new Productos();
 
             cargaProductos();
-
 
         }
 
         private void cargaProductos()
         {
 
-            /* 
-             // Propiedades
-
-             dataGrindView1.Columns["Columm 3"].DefaultCellStyle.Format = "N2";
-                 try {
-
-                 for (int i = 0; i < 3; i++)
-
-                 {
-
-                    // MessageBox.Show(productos)                   
-                     dataGridView1.Rows.Add(miller[i].producto_codigo)
-             }
-
-             }
-             catch (Exception err)
-             {
-                 MessageBox.Show("no se" + err);
-             }
-
-     */
-
             int contador = 0;
             string line;
             System.IO.StreamReader file =
             new System.IO.StreamReader(@"C:\Users\Adrian\source\repos\WindowsFormsApp1\Practica Sistemas.csv");
+
             while ((line = file.ReadLine()) != null)
 
             {
+
                 richTextBox1.Text += line + Environment.NewLine;
-                // counter++;
-                /* string[] split = line.Split(',');
-                 dataGridView1.Rows.Add(split[0]);
-                 dataGridView1.Rows.Add(split[1]);
-                 dataGridView1.Rows.Add(split[2]);
-                 */
                 dataGridView1.Rows.Add(line.Split(','));
                 dataGridView1.Rows[contador].HeaderCell.Value = (contador + 1).ToString();
                 contador++;
-
-
+                MessageBox.Show("entra al wile" + contador);
             }
 
+             file.Close();
+         }
 
 
-            file.Close();
-
-        }
-
-        class Productos
+        private void buttonagregar_Click(object sender, EventArgs e)
         {
-            // Propiedades
-
-            public long producto_codigo = 0;
-            public String producto_nombre = "";
-            public float producto_precio = 0.00f;
-
-
-            public Productos()
-            {
-                //    MessageBox.Show("Me llamaron sin parametros");
-            }
-
-            public Productos(long producto_codigo, String producto_nombre, float producto_precio)
-            {
-                //  MessageBox.Show("Me llamaron con Long ,String , Float");
-                this.producto_codigo = producto_codigo;
-                this.producto_nombre = producto_nombre;
-
-            }
-            public Productos(long producto_codigo, String producto_nombre, double producto_precio)
-            {
-                //MessageBox.Show("Me llamaron con Long ,String , Double");
-                this.producto_codigo = producto_codigo;
-                this.producto_nombre = producto_nombre;
-                //this.producto_precio = float.Parse(producto_precio.ToString());
-
-
-            }
-
-
-        }
-
-
-
-
-
-
-
-
-        private void richTextBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
+            //Primero compara el codigo del producto, si no esta lo agrega.
             bool esta = false;
             for (int i = 0; i<dataGridView1.Rows.Count; i++)
             {
@@ -184,32 +76,33 @@ namespace WindowsFormsApp1
 
             else
             {
-
                 MessageBox.Show("Esta cargado");
             }
-
-
-          
+                      
         }
 
-        private void richTextBox2_TextChanged(object sender, EventArgs e)
+
+        private void buttoneliminar_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("Desea eliminar" + dataGridView1[1, rowSelect].Value.ToString()
-                + " con el precio de :" + dataGridView1[2, rowSelect].Value.ToString(), "Titulo de la ventana",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-
+            if (dataGridView1.Rows.Count > 0)
             {
-                dataGridView1.Rows.RemoveAt(rowSelect);
+
+                if (MessageBox.Show("Desea eliminar" + dataGridView1[1, rowSelect].Value.ToString()
+        + " con el precio de :" + dataGridView1[2, rowSelect].Value.ToString(), "Titulo de la ventana",
+        MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+
+                {
+                    dataGridView1.Rows.RemoveAt(rowSelect);
+                }
             }
+            else
+            {
+                MessageBox.Show(" Ya no hay datos para eliminar ");
+
+            }
+
             limpiar();
-
-
-        }
+            }
 
         private void limpiar()
         {
@@ -218,7 +111,6 @@ namespace WindowsFormsApp1
             richTextBox4.Clear();
             richTextBox2.Enabled = true;
             richTextBox2.Focus();
-
 
         }
 
@@ -245,14 +137,14 @@ namespace WindowsFormsApp1
 
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void buttonmodificar_Click(object sender, EventArgs e)
         {
 
             if (MessageBox.Show("Desea Modificar " +
                 dataGridView1[1, rowSelect].Value.ToString()
-    + " con el precio de :" +
-    dataGridView1[2, rowSelect].Value.ToString(), "Titulo de la ventana",
-    MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                      + " con el precio de :" +
+                      dataGridView1[2, rowSelect].Value.ToString(), "Titulo de la ventana",
+                      MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
 
             {
                 dataGridView1[1, rowSelect].Value = richTextBox3.Text;
@@ -263,12 +155,8 @@ namespace WindowsFormsApp1
 
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
 
-        }
-
-        private void button4_Click(object sender, EventArgs e)
+        private void buttonlimpiar_Click(object sender, EventArgs e)
         {
             limpiar();
         }
@@ -279,9 +167,14 @@ namespace WindowsFormsApp1
             dataGridView1.SelectAll();
             dataGridView1.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
             DataObject dataObject = dataGridView1.GetClipboardContent();
-            File.WriteAllText("Practica Sistemas.csv", dataObject.GetText(TextDataFormat.CommaSeparatedValue));
+           // File.WriteAllText("Practica Sistemas.csv", dataObject.GetText(TextDataFormat.CommaSeparatedValue));
+            MessageBox.Show(" Se guarda el archivo ");
         }
 
+        private void CRUD_Load_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }
             

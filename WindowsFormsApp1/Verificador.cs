@@ -76,14 +76,11 @@ namespace WindowsFormsApp1
             {
                 label3.Text = " CODIGO NO ENCONTRADO ";
                 label3.Location = new Point(this.Width / 2 - label3.Width / 2, label2.Height + label2.Height + 70);
-
-
+                
             }
-
-
+            
             file.Close();
-
-        }
+                    }
 
 
 
